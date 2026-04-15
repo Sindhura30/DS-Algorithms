@@ -9,7 +9,7 @@ Linked lists are dynamic data structures where elements are stored in nodes that
 ## Files
 
 - `LinkedList.js` - Implementation of a singly linked list
-- `../DoublyLinkedList.js` - Implementation of a doubly linked list
+- `DoublyLinkedList.js` - Implementation of a doubly linked list
 
 ## Singly Linked List (`LinkedList.js`)
 
