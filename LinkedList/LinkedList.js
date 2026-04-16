@@ -135,4 +135,24 @@ class LinkedList {
         }
        return this;
     }
+
+    reverse() {
+        if (!this.head || !this.head.next) {
+            return this;
+        }
+
+        let prev = null;
+        let current = this.head;
+        this.tail = current; // After reversal, the original head will become the tail
+
+        while (current) {
+            let nextNode = current.next; // Store the next node
+            current.next = prev; // Reverse the link
+            prev = current; // Move prev to current
+            current = nextNode; // Move to the next node
+        }
+
+        this.head = prev; // After the loop, prev will be the new head
+        return this;
+    }       
 }
