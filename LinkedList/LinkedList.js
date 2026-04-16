@@ -136,23 +136,32 @@ class LinkedList {
        return this;
     }
 
+    /**
+     * Reverses the linked list in place
+     * Changes the direction of all pointers so the head becomes the tail and vice versa
+     * @returns {LinkedList} - Returns the LinkedList instance for method chaining
+     */
     reverse() {
+        // If list is empty or has only one node, no reversal needed
         if (!this.head || !this.head.next) {
             return this;
         }
 
-        let prev = null;
-        let current = this.head;
-        this.tail = current; // After reversal, the original head will become the tail
+        // Initialize pointers for reversal
+        let prev = null; // Will track the previous node in the reversed list
+        let current = this.head; // Current node being processed
+        this.tail = current; // The original head will become the new tail
 
+        // Traverse through the list and reverse each node's next pointer
         while (current) {
-            let nextNode = current.next; // Store the next node
-            current.next = prev; // Reverse the link
-            prev = current; // Move prev to current
-            current = nextNode; // Move to the next node
+            let nextNode = current.next; // Store reference to next node before changing links
+            current.next = prev; // Reverse the current node's pointer to point backwards
+            prev = current; // Move prev forward to current position
+            current = nextNode; // Move current to the next node in original list
         }
 
-        this.head = prev; // After the loop, prev will be the new head
+        // After loop, prev points to the original tail (now the new head)
+        this.head = prev;
         return this;
     }       
 }
