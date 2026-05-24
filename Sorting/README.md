@@ -22,7 +22,7 @@ Sorting algorithms rearrange the elements of an array into a defined order, typi
 
 #### Pseudocode
 ```text
-for i from 0 to n-2
+for i from 0 to n-1
   for j from 0 to n-i-2
     if arr[j] > arr[j+1]
       swap arr[j] and arr[j+1]
@@ -37,12 +37,12 @@ for i from 0 to n-2
 #### Pseudocode
 ```text
 for i from 1 to n-1
-  key = arr[i]
+  curr = arr[i]
   j = i - 1
-  while j >= 0 and arr[j] > key
+  while j >= 0 and arr[j] > curr
     arr[j+1] = arr[j]
     j = j - 1
-  arr[j+1] = key
+  arr[j+1] = curr
 ```
 
 ### Selection Sort
@@ -53,12 +53,13 @@ for i from 1 to n-1
 
 #### Pseudocode
 ```text
-for i from 0 to n-2
+for i from 0 to n-1
   minIndex = i
   for j from i+1 to n-1
     if arr[j] < arr[minIndex]
       minIndex = j
-  swap arr[i] and arr[minIndex]
+  if minIndex != i
+    swap arr[i] and arr[minIndex]
 ```
 
 ## Usage
