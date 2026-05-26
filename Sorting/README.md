@@ -1,6 +1,6 @@
 # Sorting Algorithms
 
-This folder contains implementations of three simple comparison-based sorting algorithms in JavaScript.
+This folder contains implementations of four comparison-based sorting algorithms in JavaScript.
 
 ## Overview
 
@@ -11,6 +11,7 @@ Sorting algorithms rearrange the elements of an array into a defined order, typi
 - `BubbleSort.js` - Repeatedly compares and swaps adjacent elements until the array is sorted.
 - `InsertionSort.js` - Builds a sorted region by inserting each next element into its correct position.
 - `SelectionSort.js` - Selects the smallest element from the unsorted portion and swaps it into place.
+- `MergeSort.js` - Divides the array into halves recursively, then merges them back in sorted order.
 
 ## Algorithms
 
@@ -62,6 +63,35 @@ for i from 0 to n-1
     swap arr[i] and arr[minIndex]
 ```
 
+### Merge Sort
+- Divides the array into halves recursively until each subarray has one element, then merges them back in sorted order.
+- Uses a divide-and-conquer strategy with excellent performance on large datasets.
+- Time Complexity: **O(n log n)** worst/average/best
+- Space Complexity: **O(n)**
+
+#### Pseudocode
+```text
+function mergeSort(arr)
+  if arr.length <= 1
+    return arr
+  mid = floor(arr.length / 2)
+  left = mergeSort(arr[0...mid])
+  right = mergeSort(arr[mid...end])
+  return merge(left, right)
+
+function merge(left, right)
+  result = []
+  i = 0, j = 0
+  while i < left.length and j < right.length
+    if left[i] < right[j]
+      result.push(left[i])
+      i++
+    else
+      result.push(right[j])
+      j++
+  return result + remaining elements from left + remaining elements from right
+```
+
 ## Usage
 
 Each algorithm file exports a sorting function that takes an array and returns the sorted array. Example usage:
@@ -74,5 +104,6 @@ console.log(sorted); // [1, 2, 5, 5, 6, 9]
 
 ## Notes
 
-- These sorting algorithms are not the most efficient for large datasets, but they are valuable for learning fundamental algorithmic concepts.
-- All implementations sort the array in place, so the input array is modified.
+- Bubble Sort, Insertion Sort, and Selection Sort are valuable for learning fundamental algorithmic concepts but are inefficient for large datasets.
+- Merge Sort is much more efficient for larger datasets with guaranteed O(n log n) performance, though it uses more memory.
+- Bubble Sort, Insertion Sort, and Selection Sort sort in place, while Merge Sort requires additional space.
