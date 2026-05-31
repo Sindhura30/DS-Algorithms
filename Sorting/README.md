@@ -1,6 +1,6 @@
 # Sorting Algorithms
 
-This folder contains implementations of four comparison-based sorting algorithms in JavaScript.
+This folder contains implementations of six sorting algorithms in JavaScript, including both comparison-based and non-comparison-based approaches.
 
 ## Overview
 
@@ -12,6 +12,8 @@ Sorting algorithms rearrange the elements of an array into a defined order, typi
 - `InsertionSort.js` - Builds a sorted region by inserting each next element into its correct position.
 - `SelectionSort.js` - Selects the smallest element from the unsorted portion and swaps it into place.
 - `MergeSort.js` - Divides the array into halves recursively, then merges them back in sorted order.
+- `QuickSort.js` - Selects a pivot and partitions the array, then recursively sorts the partitions.
+- `RadixSort.js` - Sorts numbers by processing individual digits from least to most significant.
 
 ## Algorithms
 
@@ -92,6 +94,59 @@ function merge(left, right)
   return result + remaining elements from left + remaining elements from right
 ```
 
+### Quick Sort
+- Selects a pivot element and partitions the array into elements smaller and larger than the pivot.
+- Recursively sorts both partitions using a divide-and-conquer approach.
+- Works well in practice and is often faster than Merge Sort due to better cache locality.
+- Time Complexity: **O(n log n)** average, **O(n²)** worst case
+- Space Complexity: **O(log n)** due to recursive call stack
+
+#### Pseudocode
+```text
+function quickSort(arr)
+  if arr.length <= 1
+    return arr
+  pivot = arr[last element]
+  left = []
+  right = []
+  for each element in arr (except pivot)
+    if element < pivot
+      add element to left
+    else
+      add element to right
+  return quickSort(left) + [pivot] + quickSort(right)
+```
+
+### Radix Sort
+- A non-comparative sorting algorithm that sorts numbers by processing individual digits.
+- Processes digits from least significant (ones place) to most significant, using counting sort as a subroutine.
+- Efficient for sorting large numbers of integers with a limited range of values.
+- Time Complexity: **O(d × (n + k))** where d = number of digits, n = number of elements, k = digit range (0-9)
+- Space Complexity: **O(n + k)**
+
+#### Pseudocode
+```text
+function radixSort(arr)
+  maxNum = findMax(arr)
+  for exp = 1; maxNum / exp > 0; exp *= 10
+    countingSort(arr, exp)
+  return arr
+
+function countingSort(arr, exp)
+  output = array of size n
+  count = array of 10 zeros
+  for each element in arr
+    digit = (element / exp) % 10
+    count[digit]++
+  for i from 1 to 9
+    count[i] += count[i-1]
+  for each element from end to start
+    digit = (element / exp) % 10
+    output[count[digit] - 1] = element
+    count[digit]--
+  copy output back to arr
+```
+
 ## Usage
 
 Each algorithm file exports a sorting function that takes an array and returns the sorted array. Example usage:
@@ -104,6 +159,9 @@ console.log(sorted); // [1, 2, 5, 5, 6, 9]
 
 ## Notes
 
-- Bubble Sort, Insertion Sort, and Selection Sort are valuable for learning fundamental algorithmic concepts but are inefficient for large datasets.
-- Merge Sort is much more efficient for larger datasets with guaranteed O(n log n) performance, though it uses more memory.
-- Bubble Sort, Insertion Sort, and Selection Sort sort in place, while Merge Sort requires additional space.
+- **Comparison-based sorts** (Bubble, Insertion, Selection, Merge, Quick) compare elements to determine their order. They have a theoretical lower bound of O(n log n).
+- **Non-comparison sorts** (Radix) process the structure of the data directly. Radix Sort is linear in nature but works best with integers with a limited number of digits.
+- **Bubble Sort, Insertion Sort, and Selection Sort** are valuable for learning fundamental algorithmic concepts but are inefficient for large datasets.
+- **Merge Sort and Quick Sort** are efficient for larger datasets with O(n log n) performance. Quick Sort is generally preferred in practice due to better cache locality and lower space usage.
+- **Radix Sort** is specialized for sorting integers and can be faster than comparison-based sorts when the number of digits is small relative to n log n.
+- **In-place sorts** (Bubble, Insertion, Selection) use only O(1) extra space, while **out-of-place sorts** (Merge, Quick, Radix) require additional space for working arrays.
